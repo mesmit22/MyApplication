@@ -1,11 +1,9 @@
 package com.learning.myapplication;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,14 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "Test";
+
     FragmentManager fragmentManager = getFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("Log", "Log reached");
+        Log.d(TAG, "OnCreate Test works");
         Button button = (Button)findViewById(R.id.change_fragment_1_btn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +54,7 @@ public class MainActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        Log.d(TAG, "It Ran");
         return true;
     }
 
@@ -66,6 +67,8 @@ public class MainActivity extends FragmentActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast settingsToast = Toast.makeText(getApplicationContext(), "settings", Toast.LENGTH_SHORT);
+            settingsToast.show();
             return true;
         }
 
