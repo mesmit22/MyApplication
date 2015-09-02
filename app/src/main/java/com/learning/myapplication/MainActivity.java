@@ -2,23 +2,42 @@ package com.learning.myapplication;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends FragmentActivity {
+    FragmentManager fragmentManager = getFragmentManager();
+    OneFragment fragment = new OneFragment();
+    TwoFragment fragmentTwo = new TwoFragment();
+
+    public void ChangeFragmentOne(View v) {
+        Context context = getApplicationContext();
+        CharSequence text = "Hello toast!";
+        int duration = Toast.LENGTH_LONG;
+
+        if (v.getId() == R.id.fragment_textView) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragment_one, fragmentTwo);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }else if(v.getId() == R.id.change_fragment_1_btn) {
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("Log", "Log reached");
-        FragmentManager fragmentManager = getFragmentManager();
-        OneFragment fragment = new OneFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_one, fragment);
         fragmentTransaction.commit();
